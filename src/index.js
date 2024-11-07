@@ -1,5 +1,4 @@
 import { buttonsEng } from "./data/buttonsEng";
-import { buttonsRu } from "./data/buttonsRu";
 import { keyCodes } from "./data/keyCodes";
 import "./style.scss";
 
@@ -78,19 +77,6 @@ class createButtons {
       totalRows[i].append(...newButtons);
     });
   }
-
-  // createButtonRu() {
-  //   buttonsEng.forEach((elem, i) => {
-  //     const newButtons = [];
-  //     for (let i = 0; i < elem.length; i++) {
-  //       this.button = document.createElement("div");
-  //       this.button.textContent = elem[i];
-  //       this.button.classList.add("keyboard_button");
-  //       newButtons.push(this.button);
-  //     }
-  //     totalRows[i].append(...newButtons);
-  //   });
-  // }
 }
 
 const keyboardButtons = new createButtons();
