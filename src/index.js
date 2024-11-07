@@ -46,7 +46,6 @@ keyboardWrapper.append(keyboardPlate);
 
 const keyboardCableTwo = document.createElement('div');
 keyboardCableTwo.classList.add('keyboard_cable_two');
-// keyboardPlate.append(keyboardCableTwo);
 keyboardPlate.insertAdjacentElement('afterend', keyboardCableTwo);
 
 const keyboardRows = function () {
@@ -96,16 +95,6 @@ class createButtons {
 
 const keyboardButtons = new createButtons();
 keyboardButtons.createButton();
-
-const keyboardOS = document.createElement("p");
-keyboardOS.classList.add("keyboard_os");
-keyboardWrapper.append(keyboardOS);
-keyboardOS.textContent = "Win 10";
-
-const keyboardLang = document.createElement("p");
-keyboardLang.classList.add("keyboard_lang");
-keyboardWrapper.append(keyboardLang);
-keyboardLang.textContent = "to change language press Ctrl+Alt";
 
 window.addEventListener("keydown", typeText);
 
@@ -159,18 +148,3 @@ function clickText() {
 }
 
 clickText();
-
-// let lang = 1;
-
-// const lang = localStorage.getItem('lang') ?? 'eng'
-
-// window.addEventListener("keydown", changeLang);
-
-// function changeLang(e) {
-//     if(e.keyCode === 16 && e.keyCode === 17) {
-//       const keyboardButtonsRu = new createButtons();
-//       keyboardButtonsRu.createButtonRu();
-//     }
-// }
-
-// changeLang();
