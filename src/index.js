@@ -12,8 +12,8 @@ const cherryTextareaWrapper = document.createElement("div");
 cherryTextareaWrapper.classList.add("keyboard_cherry_textarea_wrapper");
 keyboardWrapper.append(cherryTextareaWrapper);
 
-const keyboardCableOne = document.createElement('span');
-keyboardCableOne.classList.add('keyboard_cable_one');
+const keyboardCableOne = document.createElement("span");
+keyboardCableOne.classList.add("keyboard_cable_one");
 keyboardWrapper.append(keyboardCableOne);
 
 const keyboardCherryNeon = document.createElement("a");
@@ -29,8 +29,8 @@ const cherryBerries = document.createElement("span");
 cherryBerries.classList.add("keyboard_cherry_berries");
 keyboardCherryNeon.append(cherryBerries);
 
-const keyboardCableThree = document.createElement('span');
-keyboardCableThree.classList.add('keyboard_cable_three');
+const keyboardCableThree = document.createElement("span");
+keyboardCableThree.classList.add("keyboard_cable_three");
 cherryTextareaWrapper.append(keyboardCableThree);
 
 const keyboardTextarea = document.createElement("textarea");
@@ -43,9 +43,9 @@ const keyboardPlate = document.createElement("div");
 keyboardPlate.classList.add("keyboard_plate");
 keyboardWrapper.append(keyboardPlate);
 
-const keyboardCableTwo = document.createElement('div');
-keyboardCableTwo.classList.add('keyboard_cable_two');
-keyboardPlate.insertAdjacentElement('afterend', keyboardCableTwo);
+const keyboardCableTwo = document.createElement("div");
+keyboardCableTwo.classList.add("keyboard_cable_two");
+keyboardPlate.insertAdjacentElement("afterend", keyboardCableTwo);
 
 const keyboardRows = function () {
   const rowsNumber = 5;
@@ -86,10 +86,23 @@ window.addEventListener("keydown", typeText);
 
 function typeText(e) {
   const allButtons = document.querySelectorAll(".keyboard_button");
-  const result = "";
+  console.log(keyboardTextarea.value, 'value first')
   for (let i = 0; i < allButtons.length; i++) {
-    if (e?.keyCode === +keyCodes[i]) {
-      keyboardTextarea.value += `${result + allButtons[i].textContent}`;
+    let result = "a";
+    console.log(result, 'result init');
+    console.log(keyboardTextarea.value, 'value sec')
+    if (e?.keyCode === +keyCodes[i] && e?.keyCode !== 8) {
+      keyboardTextarea.value += `${allButtons[i].textContent}`;
+      result = keyboardTextarea.value;
+      console.log(keyboardTextarea.value, 'value')
+      console.log(allButtons[i].textContent);
+      console.log(result, 'result');
+    }
+    if (e?.keyCode === +keyCodes[i] && e?.keyCode === 8) {
+      console.log(result);
+      // console.log(result.slice(0, -1))
+    console.log(keyboardTextarea.value, 'value 3');
+    keyboardTextarea.value = (keyboardTextarea.value).slice(0, -1);
     }
   }
 }
