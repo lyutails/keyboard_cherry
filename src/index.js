@@ -93,7 +93,8 @@ function typeText(e) {
       e?.keyCode !== 46 &&
       e?.keyCode !== 9 &&
       e?.keyCode !== 32 &&
-      e?.getModifierState("CapsLock") === false
+      e?.getModifierState("CapsLock") === false &&
+      e?.getModifierState("Shift") === false
     ) {
       e?.keyCode === 20
         ? (keyboardTextarea.value += "")
@@ -125,6 +126,13 @@ function typeText(e) {
     if (e?.keyCode === +keyCodes[i] && e?.keyCode === 32) {
       console.log(e.keyCode);
       keyboardTextarea.value += " ";
+    }
+    if (e?.keyCode === +keyCodes[i] && e?.getModifierState("Shift") === true) {
+      e?.keyCode === 16
+        ? (keyboardTextarea.value += "")
+        : (keyboardTextarea.value += `${allButtons[
+            i
+          ].textContent.toUpperCase()}`);
     }
     if (e?.keyCode === +keyCodes[i] && e?.keyCode === 13) {
       keyboardTextarea.value += "";
