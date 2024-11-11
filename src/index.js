@@ -86,23 +86,35 @@ window.addEventListener("keydown", typeText);
 
 function typeText(e) {
   const allButtons = document.querySelectorAll(".keyboard_button");
-  console.log(keyboardTextarea.value, 'value first')
   for (let i = 0; i < allButtons.length; i++) {
-    let result = "a";
-    console.log(result, 'result init');
-    console.log(keyboardTextarea.value, 'value sec')
-    if (e?.keyCode === +keyCodes[i] && e?.keyCode !== 8) {
-      keyboardTextarea.value += `${allButtons[i].textContent}`;
-      result = keyboardTextarea.value;
-      console.log(keyboardTextarea.value, 'value')
-      console.log(allButtons[i].textContent);
-      console.log(result, 'result');
+    if (
+      e?.keyCode === +keyCodes[i] &&
+      e?.keyCode !== 8 &&
+      e?.keyCode !== 46 &&
+      e?.getModifierState("CapsLock") === false
+    ) {
+      e?.keyCode === 20
+        ? (keyboardTextarea.value += "")
+        : (keyboardTextarea.value += `${allButtons[
+            i
+          ].textContent.toLowerCase()}`);
     }
     if (e?.keyCode === +keyCodes[i] && e?.keyCode === 8) {
-      console.log(result);
-      // console.log(result.slice(0, -1))
-    console.log(keyboardTextarea.value, 'value 3');
-    keyboardTextarea.value = (keyboardTextarea.value).slice(0, -1);
+      keyboardTextarea.value = keyboardTextarea.value.slice(0, -1);
+    }
+    if (e?.keyCode === +keyCodes[i] && e?.keyCode === 46) {
+      // !!!
+      keyboardTextarea.value = keyboardTextarea.value.slice(0, -1);
+    }
+    if (
+      e?.keyCode === +keyCodes[i] &&
+      e?.getModifierState("CapsLock") === true
+    ) {
+      e?.keyCode === 20
+        ? (keyboardTextarea.value += "")
+        : (keyboardTextarea.value += `${allButtons[
+            i
+          ].textContent.toUpperCase()}`);
     }
   }
 }
