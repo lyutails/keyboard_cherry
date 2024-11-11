@@ -92,6 +92,7 @@ function typeText(e) {
       e?.keyCode !== 8 &&
       e?.keyCode !== 46 &&
       e?.keyCode !== 9 &&
+      e?.keyCode !== 32 &&
       e?.getModifierState("CapsLock") === false
     ) {
       e?.keyCode === 20
@@ -119,7 +120,14 @@ function typeText(e) {
     }
     if (e?.keyCode === +keyCodes[i] && e?.keyCode === 9) {
       e.preventDefault();
-      keyboardTextarea.value += '  ';
+      keyboardTextarea.value += "  ";
+    }
+    if (e?.keyCode === +keyCodes[i] && e?.keyCode === 32) {
+      console.log(e.keyCode);
+      keyboardTextarea.value += " ";
+    }
+    if (e?.keyCode === +keyCodes[i] && e?.keyCode === 13) {
+      keyboardTextarea.value += "";
     }
   }
 }
