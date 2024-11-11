@@ -91,6 +91,7 @@ function typeText(e) {
       e?.keyCode === +keyCodes[i] &&
       e?.keyCode !== 8 &&
       e?.keyCode !== 46 &&
+      e?.keyCode !== 9 &&
       e?.getModifierState("CapsLock") === false
     ) {
       e?.keyCode === 20
@@ -115,6 +116,10 @@ function typeText(e) {
         : (keyboardTextarea.value += `${allButtons[
             i
           ].textContent.toUpperCase()}`);
+    }
+    if (e?.keyCode === +keyCodes[i] && e?.keyCode === 9) {
+      e.preventDefault();
+      keyboardTextarea.value += '  ';
     }
   }
 }
