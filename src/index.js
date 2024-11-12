@@ -101,7 +101,8 @@ function typeText(e) {
       e?.getModifierState("Control") === false &&
       e?.getModifierState("Alt") === false &&
       e?.keyCode !== 17 &&
-      e?.keyCode !== 18
+      e?.keyCode !== 18 &&
+      e?.keyCode !== 37
     ) {
       e?.keyCode === 20
         ? (keyboardTextarea.value += "")
@@ -113,7 +114,6 @@ function typeText(e) {
       keyboardTextarea.value = keyboardTextarea.value.slice(0, -1);
     }
     if (e?.keyCode === +keyCodes[i] && e?.keyCode === 46) {
-      // !!!
       keyboardTextarea.value = keyboardTextarea.value.slice(0, -1);
     }
     if (
@@ -131,7 +131,6 @@ function typeText(e) {
       keyboardTextarea.value += "  ";
     }
     if (e?.keyCode === +keyCodes[i] && e?.keyCode === 32) {
-      console.log(e.keyCode);
       keyboardTextarea.value += " ";
     }
     if (e?.keyCode === +keyCodes[i] && e?.getModifierState("Shift") === true) {
@@ -161,8 +160,17 @@ function typeText(e) {
       e?.getModifierState("Alt") === true &&
       e?.getModifierState("Control") === true
     ) {
-      keyboardTextarea.value += "lalala";
+      keyboardTextarea.value += "🍒";
     }
+    /* if (e?.keyCode === +keyCodes[i] && e?.keyCode === 37) {
+      let numberOfLetters = keyboardTextarea.selectionStart;
+      keyboardTextarea.focus();
+      console.log(keyboardTextarea.textLength);
+      keyboardTextarea.setSelectionRange(
+        keyboardTextarea.textLength - 1,
+        keyboardTextarea.textLength - 1
+      );
+    } */
   }
 }
 
@@ -195,12 +203,54 @@ function typeHighlight() {
 
 typeHighlight();
 
+let capslockIsOn = false;
+
 function clickText() {
-  const result = "";
   const allButtons = document.querySelectorAll(".keyboard_button");
   for (let i = 0; i < allButtons.length; i++) {
     allButtons[i].addEventListener("click", () => {
-      keyboardTextarea.value += `${result + allButtons[i].textContent}`;
+      if (
+        allButtons[i].textContent.toLowerCase() !== "backspace" &&
+        allButtons[i].textContent.toLowerCase() !== "tab" &&
+        allButtons[i].textContent.toLowerCase() !== "enter" &&
+        allButtons[i].textContent.toLowerCase() !== "control" &&
+        allButtons[i].textContent.toLowerCase() !== "alt" &&
+        allButtons[i].textContent.toLowerCase() !== "capslock" &&
+        allButtons[i].textContent.toLowerCase() !== "give some space" &&
+        allButtons[i].textContent.toLowerCase() !== "delete"
+      ) {
+        capslockIsOn === true
+          ? (keyboardTextarea.value += `${allButtons[
+              i
+            ].textContent.toUpperCase()}`)
+          : (keyboardTextarea.value += `${allButtons[
+              i
+            ].textContent.toLowerCase()}`);
+      }
+      if (allButtons[i].textContent.toLowerCase() === "backspace") {
+        keyboardTextarea.value = keyboardTextarea.value.slice(0, -1);
+      }
+      if (allButtons[i].textContent.toLowerCase() === "delete") {
+        keyboardTextarea.value = keyboardTextarea.value.slice(0, -1);
+      }
+      if (allButtons[i].textContent.toLowerCase() === "tab") {
+        keyboardTextarea.value += "  ";
+      }
+      if (allButtons[i].textContent.toLowerCase() === "enter") {
+        keyboardTextarea.value += "\n";
+      }
+      if (
+        allButtons[i].textContent.toLowerCase() === "control" ||
+        allButtons[i].textContent.toLowerCase() === "alt"
+      ) {
+        keyboardTextarea.value += "🍒";
+      }
+      if (allButtons[i].textContent.toLowerCase() === "capslock") {
+        capslockIsOn = !capslockIsOn;
+      }
+      if (allButtons[i].textContent.toLowerCase() === "give some space") {
+        keyboardTextarea.value += " ";
+      }
     });
   }
 }
