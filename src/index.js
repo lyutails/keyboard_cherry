@@ -97,7 +97,11 @@ function typeText(e) {
       e?.getModifierState("Shift") === false &&
       e?.getModifierState("OS") === false &&
       e?.keyCode !== 13 &&
-      e?.keyCode !== 91
+      e?.keyCode !== 91 &&
+      e?.getModifierState("Control") === false &&
+      e?.getModifierState("Alt") === false &&
+      e?.keyCode !== 17 &&
+      e?.keyCode !== 18
     ) {
       e?.keyCode === 20
         ? (keyboardTextarea.value += "")
@@ -142,6 +146,22 @@ function typeText(e) {
     }
     if (e?.keyCode === +keyCodes[i] && e?.getModifierState("OS") === true) {
       keyboardTextarea.value += "";
+    }
+    if (
+      e?.keyCode === +keyCodes[i] &&
+      e?.getModifierState("Control") === true
+    ) {
+      keyboardTextarea.value += "";
+    }
+    if (e?.keyCode === +keyCodes[i] && e?.getModifierState("Alt") === true) {
+      keyboardTextarea.value += "";
+    }
+    if (
+      e?.keyCode === +keyCodes[i] &&
+      e?.getModifierState("Alt") === true &&
+      e?.getModifierState("Control") === true
+    ) {
+      keyboardTextarea.value += "lalala";
     }
   }
 }
