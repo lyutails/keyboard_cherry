@@ -95,7 +95,9 @@ function typeText(e) {
       e?.keyCode !== 32 &&
       e?.getModifierState("CapsLock") === false &&
       e?.getModifierState("Shift") === false &&
-      e?.keyCode !== 13
+      e?.getModifierState("OS") === false &&
+      e?.keyCode !== 13 &&
+      e?.keyCode !== 91
     ) {
       e?.keyCode === 20
         ? (keyboardTextarea.value += "")
@@ -137,7 +139,9 @@ function typeText(e) {
     }
     if (e?.keyCode === +keyCodes[i] && e?.keyCode === 13) {
       keyboardTextarea.value += "\n";
-      console.log(keyboardTextarea.value);
+    }
+    if (e?.keyCode === +keyCodes[i] && e?.getModifierState("OS") === true) {
+      keyboardTextarea.value += "";
     }
   }
 }
