@@ -82,6 +82,10 @@ class createButtons {
 const keyboardButtons = new createButtons();
 keyboardButtons.createButton();
 
+let capslockIsOn = false;
+let moveLeft = 0;
+let moveRight = 0;
+
 window.addEventListener("keydown", typeText);
 
 function typeText(e) {
@@ -102,7 +106,10 @@ function typeText(e) {
       e?.getModifierState("Alt") === false &&
       e?.keyCode !== 17 &&
       e?.keyCode !== 18 &&
-      e?.keyCode !== 37
+      e?.keyCode !== 37 &&
+      e?.keyCode !== 38 &&
+      e?.keyCode !== 39 &&
+      e?.keyCode !== 40
     ) {
       e?.keyCode === 20
         ? (keyboardTextarea.value += "")
@@ -162,15 +169,28 @@ function typeText(e) {
     ) {
       keyboardTextarea.value += "🍒";
     }
-    /* if (e?.keyCode === +keyCodes[i] && e?.keyCode === 37) {
-      let numberOfLetters = keyboardTextarea.selectionStart;
+    if (
+      (e?.keyCode === +keyCodes[i] && e?.keyCode === 37) ||
+      (e?.keyCode === +keyCodes[i] && e?.keyCode === 38)
+    ) {
       keyboardTextarea.focus();
-      console.log(keyboardTextarea.textLength);
+      moveLeft++;
       keyboardTextarea.setSelectionRange(
-        keyboardTextarea.textLength - 1,
-        keyboardTextarea.textLength - 1
+        keyboardTextarea.textLength - moveLeft,
+        keyboardTextarea.textLength - moveLeft
       );
-    } */
+    }
+    if (
+      (e?.keyCode === +keyCodes[i] && e?.keyCode === 39) ||
+      (e?.keyCode === +keyCodes[i] && e?.keyCode === 40)
+    ) {
+      keyboardTextarea.focus();
+      moveRight++;
+      keyboardTextarea.setSelectionRange(
+        keyboardTextarea.textLength + moveRight,
+        keyboardTextarea.textLength + moveRight
+      );
+    }
   }
 }
 
@@ -203,8 +223,6 @@ function typeHighlight() {
 
 typeHighlight();
 
-let capslockIsOn = false;
-
 function clickText() {
   const allButtons = document.querySelectorAll(".keyboard_button");
   for (let i = 0; i < allButtons.length; i++) {
@@ -219,7 +237,11 @@ function clickText() {
         allButtons[i].textContent.toLowerCase() !== "give some space" &&
         allButtons[i].textContent.toLowerCase() !== "delete" &&
         allButtons[i].textContent.toLowerCase() !== "shift" &&
-        allButtons[i].textContent.toLowerCase() !== "win"
+        allButtons[i].textContent.toLowerCase() !== "win" &&
+        allButtons[i].textContent !== "▲" &&
+        allButtons[i].textContent !== "◀" &&
+        allButtons[i].textContent !== "▼" &&
+        allButtons[i].textContent !== "▶"
       ) {
         capslockIsOn === true
           ? (keyboardTextarea.value += `${allButtons[
@@ -258,6 +280,28 @@ function clickText() {
       }
       if (allButtons[i].textContent.toLowerCase() === "win") {
         keyboardTextarea.value += "🏆";
+      }
+      if (
+        allButtons[i].textContent === "▲" ||
+        allButtons[i].textContent === "◀"
+      ) {
+        keyboardTextarea.focus();
+        moveLeft++;
+        keyboardTextarea.setSelectionRange(
+          keyboardTextarea.textLength - moveLeft,
+          keyboardTextarea.textLength - moveLeft
+        );
+      }
+      if (
+        allButtons[i].textContent === "▼" ||
+        allButtons[i].textContent === "▶"
+      ) {
+        keyboardTextarea.focus();
+        moveRight++;
+        keyboardTextarea.setSelectionRange(
+          keyboardTextarea.textLength + moveRight,
+          keyboardTextarea.textLength + moveRight
+        );
       }
     });
   }
