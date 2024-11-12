@@ -208,7 +208,7 @@ let capslockIsOn = false;
 function clickText() {
   const allButtons = document.querySelectorAll(".keyboard_button");
   for (let i = 0; i < allButtons.length; i++) {
-    allButtons[i].addEventListener("click", () => {
+    allButtons[i].addEventListener("click", (e) => {
       if (
         allButtons[i].textContent.toLowerCase() !== "backspace" &&
         allButtons[i].textContent.toLowerCase() !== "tab" &&
@@ -217,7 +217,9 @@ function clickText() {
         allButtons[i].textContent.toLowerCase() !== "alt" &&
         allButtons[i].textContent.toLowerCase() !== "capslock" &&
         allButtons[i].textContent.toLowerCase() !== "give some space" &&
-        allButtons[i].textContent.toLowerCase() !== "delete"
+        allButtons[i].textContent.toLowerCase() !== "delete" &&
+        allButtons[i].textContent.toLowerCase() !== "shift" &&
+        allButtons[i].textContent.toLowerCase() !== "win"
       ) {
         capslockIsOn === true
           ? (keyboardTextarea.value += `${allButtons[
@@ -250,6 +252,12 @@ function clickText() {
       }
       if (allButtons[i].textContent.toLowerCase() === "give some space") {
         keyboardTextarea.value += " ";
+      }
+      if (allButtons[i].textContent.toLowerCase() === "shift") {
+        capslockIsOn = !capslockIsOn;
+      }
+      if (allButtons[i].textContent.toLowerCase() === "win") {
+        keyboardTextarea.value += "🏆";
       }
     });
   }
